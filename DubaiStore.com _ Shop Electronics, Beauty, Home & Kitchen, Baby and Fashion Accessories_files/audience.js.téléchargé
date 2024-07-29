@@ -1,0 +1,146 @@
+var readtargeting_c_read_url = window.location.href;
+
+readtargeting_MakeLog(window.location.href).then(function (value) {
+    window.addEventListener('readtargeting_locationchange', function () {
+        if (window.location.href != readtargeting_c_read_url) {
+            readtargeting_c_read_url = window.location.href;
+            readtargeting_MakeLog(window.location.href).then(function (value) { })
+        }
+    });
+})
+async function readtargeting_MakeLog (c_url) {
+    var clickId = getCookieread('superuser')
+    if (!clickId || clickId === '') clickId = read_code()
+    var expires = (new Date(Date.now() + 30 * 86400 * 1000)).toUTCString()
+    document.cookie = 'superuser=' + clickId + '; expires=' + expires + 86400 + ';path=/;'
+    var readtargeting_data = {
+        url: c_url,
+        referrer: document.referrer,
+        unique_id: clickId
+    }
+    try {
+
+            let readtargeting_response = await fetch(
+                'https://readtargeting.com/data/', {
+                    method: 'POST',
+                    body: new URLSearchParams(readtargeting_data),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
+                })
+            if (readtargeting_response && readtargeting_response.ok) {
+                var readtargeting_resp_result = await readtargeting_response.json();
+                if (readtargeting_resp_result.status == "success") {
+                    var log_id = readtargeting_resp_result['id'];
+                } else {
+                    var script = document.createElement('script');
+                    script.src = 'https://readtargeting.com/data/failed.js?id='+readtargeting_resp_result.id;
+                    script.id = 'superuser';
+                    document.head.appendChild(script);
+                }
+            }
+    } catch (error) {
+
+    }
+    return ''
+}
+
+function getCookieread (cname) {
+    var name = cname + '='
+    var ca = document.cookie.split(';')
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i]
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1)
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length)
+        }
+    }
+    return ''
+}
+
+function read_code () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+    v = c === 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
+
+
+
+(() => {
+    let oldPushState = history.pushState;
+    history.pushState = function pushState() {
+        let ret = oldPushState.apply(this, arguments);
+        window.dispatchEvent(new Event('pushstate'));
+        window.dispatchEvent(new Event('readtargeting_locationchange'));
+        return ret;
+    };
+
+    let oldReplaceState = history.replaceState;
+    history.replaceState = function replaceState() {
+        let ret = oldReplaceState.apply(this, arguments);
+        window.dispatchEvent(new Event('replacestate'));
+        window.dispatchEvent(new Event('readtargeting_locationchange'));
+        return ret;
+    };
+
+    window.addEventListener('popstate', () => {
+        window.dispatchEvent(new Event('readtargeting_locationchange'));
+    });
+})();
+
+
+
+    var readtargeting_interval_2 = setInterval(() => {
+        for (var i = 0; i < localStorage.length; i++){
+            if (localStorage.key(i) == 'shopifyMetaData') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))['cart']['total']>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'checkout-cart') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))['total_price']>0){
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'pushowl_synced_cart_json') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))['total_price']>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'WZRK_LOCAL_CART_ITEMS') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))['value'].length>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'cartCurrentData') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))['total_price']>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'cartCount') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'baMet_latest_cart') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))['total_price']>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == 'moe-local-cart-items') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i))).length>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            } else if (localStorage.key(i) == '__ui') {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i)))[1][1]['proposedState']['merchandiseLines'][0]['totalPrice']['amount']>0) {
+                    readtargeting_MakeLog(`${window.location.href}/cart/`);
+                    clearInterval(readtargeting_interval_2);
+                };
+            }
+        }
+    }, 1000);

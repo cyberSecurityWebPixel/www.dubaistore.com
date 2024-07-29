@@ -1,0 +1,70 @@
+// START HOMEPAGE NEW SECTIONS
+$( document ).ready(function() {
+    const swiper = new Swiper('.swiper-CATEGORIES', {
+			slidesPerView: 6,
+			slidesPerGroup: 6,
+			freeMode: true,
+			breakpoints: {
+				320: {
+					slidesPerView: 3.3
+				},
+				480: {
+					slidesPerView: 4
+				},
+				737: {
+					slidesPerView: 5.5
+				},
+				1025: {
+					slidesPerView: 7.3
+				}
+			},
+			navigation: {
+				nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			}
+		});
+		
+		$(".row.product-tabs.recommendation-tabs").append($(".worthy-deals"));
+		$(".row.product-tabs.recommendation-tabs").append($(".brands-merchants"));
+		$(".top-departments").insertBefore($("div").find(`[data-czid='Home Page Deep Link Content Zone']`));
+		$(".row.product-tabs.merchant-tabs").insertBefore(".top-departments");
+
+    
+        // PLP & Featured Stores Swiper Improvements 
+        new Swiper('.swiper-home', {
+			breakpoints: {
+				320: {
+					slidesPerView: 2.3
+				},
+				480: {
+					slidesPerView: 4
+				},
+				737: {
+					slidesPerView: 3.5
+				},
+				1025: {
+					slidesPerView: 5.3
+				}
+			}
+		});
+		
+		new Swiper('.swiper-featured', {
+			breakpoints: {
+				320: {
+					slidesPerView: 1.2
+				},
+				480: {
+					slidesPerView: 4
+				},
+				737: {
+					slidesPerView: 2.5
+				},
+				1025: {
+					slidesPerView: 3.2
+				}
+			}
+		});
+    
+    
+});
+// END HOMEPAGE NEW SECTIONS
